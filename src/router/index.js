@@ -1,11 +1,11 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import { onAuthStateChanged} from 'firebase/auth'
-import { useFirebaseAuth } from 'vuefire'
+//import { onAuthStateChanged} from 'firebase/auth'
+//import { useFirebaseAuth } from 'vuefire'
 import HomeView from '../views/HomeView.vue'
 
 
 const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
+  history: createWebHistory(import.meta.env.BASE_URL || '/' ),
   routes: [
     {
       path: '/',
@@ -15,12 +15,12 @@ const router = createRouter({
     {
         path: '/satisfaccion-cliente',
         name: 'satisfaccion-cliente',
-        component: () => import('../views/SatisfaccionClienteViews.vue')
+        component: () => import('../views/SatisfaccionClienteView.vue')
       },
   ]
 })
 
-
+/*
 //Guard de navegación
 router.beforeEach(async (to, from, next) => {
   const requiresAuth = to.matched.some(url => url.meta.requiresAuth)
@@ -56,5 +56,5 @@ function authenticateUser(){
       }
     })
   })
-}
+}*/
 export default router
