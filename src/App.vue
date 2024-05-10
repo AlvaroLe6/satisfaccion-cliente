@@ -56,6 +56,7 @@ export default {
     items: [
       { title: "Cursos", route: "cursos" },
       { title: "Webinar", route: "webinar" },
+      
     ],
   }),
   methods: {
