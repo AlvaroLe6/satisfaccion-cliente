@@ -1,11 +1,11 @@
 import { createRouter, createWebHistory } from 'vue-router'
-//import { onAuthStateChanged} from 'firebase/auth'
-//import { useFirebaseAuth } from 'vuefire'
+import { onAuthStateChanged} from 'firebase/auth'
+import { useFirebaseAuth } from 'vuefire'
 import HomeView from '../views/HomeView.vue'
 
 
 const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL || '/' ),
+  history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: '/',
@@ -13,14 +13,47 @@ const router = createRouter({
       component: HomeView
     },
     {
-        path: '/satisfaccion-cliente',
-        name: 'satisfaccion-cliente',
-        component: () => import('../views/SatisfaccionClienteView.vue')
-      },
+      path: '/login',
+      name: 'login',
+      component: () => import('../views/LoginView.vue')
+    },
+    {
+      path: '/register',
+      name: 'register',
+      component: () => import('../views/RegisterView.vue')
+    },
+
+    {
+      path: '/admin',
+      mane: 'admin',
+      component: () => import('../views/admin/AdminLayout.vue'),
+      meta: { requiresAuth: true },
+      children: [
+        {
+          path: '/admin/list_contabilidad',
+          name: 'admin-list-contabilidad',
+          component: () => import('../views/admin/AdminListContView.vue'),
+          meta: { requiresAuth: true },
+        },
+        {
+          path: '/admin/nuevo',
+          name: 'nuevo-reg-contabilidad',
+          component: () => import('../views/admin/NuevoRegContabilidadView.vue'),
+          meta: { requiresAuth: true },
+
+        }, {
+          path: '/admin/account-settings',
+          name: 'account-settings',
+          component: () => import('../views/AccountSettingsView.vue'),
+          meta: { requiresAuth: true },
+
+        },
+      ]
+    }
   ]
 })
 
-/*
+
 //Guard de navegación
 router.beforeEach(async (to, from, next) => {
   const requiresAuth = to.matched.some(url => url.meta.requiresAuth)
@@ -56,5 +89,5 @@ function authenticateUser(){
       }
     })
   })
-}*/
+}
 export default router
